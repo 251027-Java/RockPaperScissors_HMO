@@ -1,0 +1,19 @@
+main
+    playGame = true
+    do-while playGame
+        loop for each set
+            call User Input
+            call Computer Method
+            call Compare Method
+            call Display Generator
+        once game is over, ask if they want to play again
+
+Display Generator
+    print fight:
+        player chose: ____
+        computer chose: ____
+        _____ beats _____!
+    print scoreboard:
+        Player score - __
+        Computer score - __
+    if game won
