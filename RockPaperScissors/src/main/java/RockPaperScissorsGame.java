@@ -1,40 +1,39 @@
+import java.util.Scanner;
+import java.util.Random;
 
 public class RockPaperScissorsGame {
     public static void main(String[] args) {
-        // Computer computer = new Computer();
-        // Player player = new Player();
+        Computer computer = new Computer();
+        User user = new User();
         boolean playGame = true;
         do {
             //loop until game is won
             boolean gameWon = false;
             while(!gameWon) {
                 //TODO: Change these
-                String computerChoice = computer.ComputerMethod();
-                String playerChoice = player.UserInput();
+                String computerChoice = computer.ComputerTurn();
+                String userChoice = user.userTurn();
 
                 // Find the winner
                 // Will compare method update scores?
-                winner = compare(computerChoice, playerChoice);
+                winner = compare(computerChoice, userChoice);
 
                 // Generate Display
-                displayResults(playerChoice, computerChoice, winner); // optional pictures
-                displayScore(player.score, computer.score);
+                displayResults(userChoice, computerChoice, winner); // optional pictures
+                displayScore(user.score, computer.score);
 
                 // Check if game has been won
-                if(player.score == 2 || computer.score == 2) {
+                if(user.score == 2 || computer.score == 2) {
                     gameWon = true;
                 }
-                displayGameEnd(player.score, computer.score, gameWon);
+                displayGameEnd(user.score, computer.score, gameWon);
 
             }
 
             // Check if user wants to play again
             String response = IO.readln("Do you want to play again? (Y/N)");
-            if(response.equals("Y")) {
-                playGame = true; // Game will start again
-            }
-            else {
-                playGame = false; // Game will end
+            if(!response.equals("Y")) {
+                playGame = false; // If response is not "Y", game will end
             }
 
         }while(playGame);
@@ -88,6 +87,46 @@ public class RockPaperScissorsGame {
     }
 }
 
-// Have a computer class here
+class Computer{
+    //computer score
+    int score;
+    //array for computer choices
+    String[] choices = {"Rock", "Paper", "Scissors"};
+    //random object to be used for computer choice
+    Random compChoice = new Random();
 
-// Have a player class here
+    public Computer(){};
+
+    public String ComputerTurn(){
+        int randomIndex = compChoice.nextInt(choices.length);
+        String pickedObj = choices[randomIndex];
+        return pickedObj;
+    }
+}
+
+class User {
+    //user score
+    int score;
+    Scanner userInput = new Scanner(System.in);
+    String[] choices = {"Rock", "Paper", "Scissors"};
+    String answer;
+
+    public User() {
+    }
+
+    public String userTurn() {
+        try {
+            IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
+            String answer = userInput.next();
+            if (!answer.equalsIgnoreCase(choices[0]) || !answer.equalsIgnoreCase(choices[1]) || !answer.equalsIgnoreCase(choices[2])) {
+                throw new IllegalArgumentException("INAPPROPRIATE OBJECT!!! plz choose rock paper or scissors only plz");
+            }
+            IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            IO.println("Terrible choice. It's not even allowed please pick on of the GAME OBJECTS :( ");
+        }
+        return answer;
+    }
+}

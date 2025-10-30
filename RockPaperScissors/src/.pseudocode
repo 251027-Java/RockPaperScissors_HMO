@@ -8,10 +8,10 @@ main
             call Display Generator
         once game is over, ask if they want to play again
 
-Display Generator
+Display Generator (playerChoice, computerChoice)
     print fight:
-        player chose: ____
-        computer chose: ____
+        player chose: playerChoice
+        computer chose: computerChoice
         _____ beats _____!
     print scoreboard:
         Player score - __
