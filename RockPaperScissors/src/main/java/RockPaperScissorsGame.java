@@ -189,8 +189,9 @@ class User {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
-            IO.println("Terrible choice. It's not even allowed please pick on of the GAME OBJECTS :( ");
+            IO.println("Terrible choice. It's not even allowed please pick one of the GAME OBJECTS :( ");
         }
+        userInput.nextLine();
         return answer;
     }
 }
