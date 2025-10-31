@@ -49,6 +49,7 @@ public class RockPaperScissorsGame {
 
     // Display results of game
     public static void displayResults(String playerChoice, String computerChoice, String winner) {
+        // Emojis of each choice
         String rock = "\uD83E\uDEA8";
         String paper = "\uD83D\uDCC4";
         String scissors = "✂\uFE0F";
