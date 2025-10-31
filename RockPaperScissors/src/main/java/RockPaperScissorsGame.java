@@ -16,10 +16,10 @@ public class RockPaperScissorsGame {
                 // Find the winner and update the scores
                 String winner = Compare.winOrLoss(computerChoice, userChoice);
                 IO.println(winner);
-                if(winner.equals("Player Won!")) {
+                if(winner.equalsIgnoreCase("Player Won!")) {
                     user.score++;
                 }
-                else if(winner.equals("Computer Won!")){
+                else if(winner.equalsIgnoreCase("Computer Won!")){
                     computer.score++;
                 }
                 else{
@@ -40,8 +40,12 @@ public class RockPaperScissorsGame {
 
             // Check if user wants to play again
             String response = IO.readln("Do you want to play again? (Y/N)");
-            if(!response.equals("Y")) {
+            if(!response.equalsIgnoreCase("Y")) {
                 playGame = false; // If response is not "Y", game will end
+            }
+            else {
+                user.score = 0;
+                computer.score = 0;
             }
 
         }while(playGame);
@@ -52,11 +56,11 @@ public class RockPaperScissorsGame {
         IO.println("You chose " + playerChoice);
         IO.println("Computer chose " + computerChoice);
 
-        if(winner.equals("Player Won!")) {
+        if(winner.equalsIgnoreCase("Player Won!")) {
             IO.println(playerChoice + " beats " + computerChoice);
             // Optional: add pictures here
         }
-        else if(winner.equals("Computer Won!")){
+        else if(winner.equalsIgnoreCase("Computer Won!")){
             IO.println(computerChoice + " beats " + playerChoice);
             // Optional: add pictures here
         }
