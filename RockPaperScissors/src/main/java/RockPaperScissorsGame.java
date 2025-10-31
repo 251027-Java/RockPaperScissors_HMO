@@ -10,13 +10,17 @@ public class RockPaperScissorsGame {
             //loop until game is won
             boolean gameWon = false;
             while(!gameWon) {
-                //TODO: Change these
                 String computerChoice = computer.ComputerTurn();
                 String userChoice = user.userTurn();
 
-                // Find the winner
-                // Will compare method update scores?
+                // Find the winner and update the scores
                 String winner = Compare.winOrLoss(computerChoice, userChoice);
+                if(winner.equals("Player Won!")) {
+                    user.score++;
+                }
+                else if(winner.equals("Computer Won!")){
+                    computer.score++;
+                }
 
                 // Generate Display
                 displayResults(userChoice, computerChoice, winner); // optional pictures
@@ -44,14 +48,15 @@ public class RockPaperScissorsGame {
         IO.println("You chose " + playerChoice);
         IO.println("Computer chose " + computerChoice);
 
-        if(winner.equals("player")) {
+        if(winner.equals("Player Won!")) {
             IO.println(playerChoice + " beats " + computerChoice);
             // Optional: add pictures here
         }
-        else {
+        else if(winner.equals("Computer Won!")){
             IO.println(computerChoice + " beats " + playerChoice);
             // Optional: add pictures here
         }
+        IO.println();
     }
 
     // Display scores
@@ -181,12 +186,12 @@ class User {
                 throw new IllegalArgumentException("INAPPROPRIATE OBJECT!!! plz choose rock paper or scissors only plz");
             }
             IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
+            userInput.nextLine();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
             IO.println("Terrible choice. It's not even allowed please pick one of the GAME OBJECTS :( ");
         }
-        userInput.nextLine();
         return answer;
     }
 }
