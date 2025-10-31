@@ -21,6 +21,9 @@ public class RockPaperScissorsGame {
                 else if(winner.equalsIgnoreCase("Computer Won!")){
                     computer.score++;
                 }
+                else{
+                    IO.println("Tie!");
+                }
 
                 // Generate Display
                 displayResults(userChoice, computerChoice, winner); // optional pictures
@@ -232,14 +235,18 @@ class User {
             if (!answer.equalsIgnoreCase(choices[0]) && !answer.equalsIgnoreCase(choices[1]) && !answer.equalsIgnoreCase(choices[2])) {
                 throw new IllegalArgumentException("INAPPROPRIATE OBJECT!!! plz choose rock paper or scissors only plz");
             }
+            IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
+            userInput.nextLine();
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
             answer = userInput.next();
         } catch (Exception e) {
-            IO.println("Terrible choice. It's not even allowed please pick on of the GAME OBJECTS :( ");
+            IO.println("Terrible choice. It's not even allowed please pick one of the GAME OBJECTS :( ");
+            answer = userInput.next();
         }
+        userInput.nextLine();
         return answer;
     }
 }
