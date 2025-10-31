@@ -15,11 +15,10 @@ public class RockPaperScissorsGame {
 
                 // Find the winner and update the scores
                 String winner = Compare.winOrLoss(computerChoice, userChoice);
-                IO.println(winner);
-                if(winner.equals("Player Won!")) {
+                if(winner.equalsIgnoreCase("Player Won!")) {
                     user.score++;
                 }
-                else if(winner.equals("Computer Won!")){
+                else if(winner.equalsIgnoreCase("Computer Won!")){
                     computer.score++;
                 }
                 else{
@@ -40,8 +39,12 @@ public class RockPaperScissorsGame {
 
             // Check if user wants to play again
             String response = IO.readln("Do you want to play again? (Y/N)");
-            if(!response.equals("Y")) {
+            if(!response.equalsIgnoreCase("Y")) {
                 playGame = false; // If response is not "Y", game will end
+            }
+            else {
+                user.score = 0;
+                computer.score = 0;
             }
 
         }while(playGame);
@@ -49,16 +52,59 @@ public class RockPaperScissorsGame {
 
     // Display results of game
     public static void displayResults(String playerChoice, String computerChoice, String winner) {
+        String rock = "\uD83E\uDEA8";
+        String paper = "\uD83D\uDCC4";
+        String scissors = "✂\uFE0F";
+
         IO.println("You chose " + playerChoice);
         IO.println("Computer chose " + computerChoice);
 
-        if(winner.equals("Player Won!")) {
-            IO.println(playerChoice + " beats " + computerChoice);
-            // Optional: add pictures here
+        if(playerChoice.equalsIgnoreCase("rock")) {
+            IO.print(rock);
+        } else if(playerChoice.equalsIgnoreCase("paper")) {
+            IO.print(paper);
+        } else if(playerChoice.equalsIgnoreCase("scissors")) {
+            IO.print(scissors);
         }
-        else if(winner.equals("Computer Won!")){
+
+        IO.print(" VS. ");
+
+        if(computerChoice.equalsIgnoreCase("rock")) {
+            IO.println(rock);
+        } else if(computerChoice.equalsIgnoreCase("paper")) {
+            IO.println(paper);
+        } else if(computerChoice.equalsIgnoreCase("scissors")) {
+            IO.println(scissors);
+        }
+
+        if(winner.equalsIgnoreCase("Player Won!")) {
+            IO.println(playerChoice + " beats " + computerChoice);
+            if(playerChoice.equalsIgnoreCase("rock")) {
+                IO.print(rock);
+            } else if(playerChoice.equalsIgnoreCase("paper")) {
+                IO.print(paper);
+            } else if(playerChoice.equalsIgnoreCase("scissors")) {
+                IO.print(scissors);
+            }
+        }
+        else if(winner.equalsIgnoreCase("Computer Won!")){
             IO.println(computerChoice + " beats " + playerChoice);
-            // Optional: add pictures here
+            if(computerChoice.equalsIgnoreCase("rock")) {
+                IO.println(rock);
+            } else if(computerChoice.equalsIgnoreCase("paper")) {
+                IO.println(paper);
+            } else if(computerChoice.equalsIgnoreCase("scissors")) {
+                IO.println(scissors);
+            }
+        } else {
+            IO.println("TIE!");
+            if(computerChoice.equalsIgnoreCase("rock")) {
+                IO.println(rock);
+            } else if(computerChoice.equalsIgnoreCase("paper")) {
+                IO.println(paper);
+            } else if(computerChoice.equalsIgnoreCase("scissors")) {
+                IO.println(scissors);
+            }
         }
         IO.println();
     }
@@ -70,7 +116,6 @@ public class RockPaperScissorsGame {
         IO.println("Lets look at the scores!");
         IO.println("Player Score: " + playerScore);
         IO.println("Computer Score: " + computerScore);
-        IO.println();
     }
 
     //Display game win screen or tell user how many games they need to win
@@ -191,6 +236,7 @@ class User {
             }
             IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
             userInput.nextLine();
+
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
