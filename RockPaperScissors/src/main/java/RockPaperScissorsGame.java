@@ -16,8 +16,7 @@ public class RockPaperScissorsGame {
 
                 // Find the winner
                 // Will compare method update scores?
-                Compare.winOrLoss("rock", "scissors");
-                //winner = compare(computerChoice, userChoice);
+                String winner = Compare.winOrLoss(computerChoice, userChoice);
 
                 // Generate Display
                 displayResults(userChoice, computerChoice, winner); // optional pictures
@@ -41,7 +40,7 @@ public class RockPaperScissorsGame {
     }
 
     // Display results of game
-    public static void displayResults(String playerChoice, String computerChoice, winner) {
+    public static void displayResults(String playerChoice, String computerChoice, String winner) {
         IO.println("You chose " + playerChoice);
         IO.println("Computer chose " + computerChoice);
 
@@ -90,7 +89,7 @@ public class RockPaperScissorsGame {
 }
 
 class Compare {
-    public static void winOrLoss(String computer, String player){
+    public static String winOrLoss(String computer, String player){
         //MAIN: Compare.winOrLoss("rock", "scissors");
 
         //read computer and player choices
@@ -139,7 +138,8 @@ class Compare {
             result = "Tie!";
         }
 
-        System.out.println("\n" + result);
+
+        return result;
     }
 }
 
