@@ -10,13 +10,21 @@ public class RockPaperScissorsGame {
             //loop until game is won
             boolean gameWon = false;
             while(!gameWon) {
-                //TODO: Change these
                 String computerChoice = computer.ComputerTurn();
                 String userChoice = user.userTurn();
 
-                // Find the winner
-                // Will compare method update scores?
+                // Find the winner and update the scores
                 String winner = Compare.winOrLoss(computerChoice, userChoice);
+                IO.println(winner);
+                if(winner.equals("Player Won!")) {
+                    user.score++;
+                }
+                else if(winner.equals("Computer Won!")){
+                    computer.score++;
+                }
+                else{
+                    IO.println("Tie!");
+                }
 
                 // Generate Display
                 displayResults(userChoice, computerChoice, winner); // optional pictures
@@ -44,14 +52,15 @@ public class RockPaperScissorsGame {
         IO.println("You chose " + playerChoice);
         IO.println("Computer chose " + computerChoice);
 
-        if(winner.equals("player")) {
+        if(winner.equals("Player Won!")) {
             IO.println(playerChoice + " beats " + computerChoice);
             // Optional: add pictures here
         }
-        else {
+        else if(winner.equals("Computer Won!")){
             IO.println(computerChoice + " beats " + playerChoice);
             // Optional: add pictures here
         }
+        IO.println();
     }
 
     // Display scores
@@ -100,41 +109,41 @@ class Compare {
         String result ="";
         //Combinations
         // rock, paper -> player
-        if (computer.equals("rock") && player.equals("paper")){
+        if (computer.equalsIgnoreCase("rock") && player.equalsIgnoreCase("paper")){
             result = "Player Won!";
         }
         // rock, scissors -> computer
-        if (computer.equals("rock") && player.equals("scissors")){
+        if (computer.equalsIgnoreCase("rock") && player.equalsIgnoreCase("scissors")){
             result = "Computer Won!";
         }
         // rock, rock -> tie
-        if (computer.equals("rock") && player.equals("rock")){
+        if (computer.equalsIgnoreCase("rock") && player.equalsIgnoreCase("rock")){
             result = "Tie!";
         }
 
         //paper, rock -> computer
-        if (computer.equals("paper") && player.equals("rock")){
+        if (computer.equalsIgnoreCase("paper") && player.equalsIgnoreCase("rock")){
             result = "Computer Won!";
         }
         //paper, scissors -> player
-        if (computer.equals("paper") && player.equals("scissors")){
+        if (computer.equalsIgnoreCase("paper") && player.equalsIgnoreCase("scissors")){
             result = "Player Won!";
         }
         //paper, paper -> tie
-        if (computer.equals("paper") && player.equals("paper")){
+        if (computer.equalsIgnoreCase("paper") && player.equalsIgnoreCase("paper")){
             result = "Tie!";
         }
 
         //scissors, rock -> player
-        if (computer.equals("scissors") && player.equals("rock")){
+        if (computer.equalsIgnoreCase("scissors") && player.equalsIgnoreCase("rock")){
             result = "Player Won!";
         }
         //scissors, paper -> computer
-        if (computer.equals("scissors") && player.equals("paper")){
+        if (computer.equalsIgnoreCase("scissors") && player.equalsIgnoreCase("paper")){
             result = "Computer Won!";
         }
         //scissors, scissors -> tie
-        if (computer.equals("scissors") && player.equals("scissors")){
+        if (computer.equalsIgnoreCase("scissors") && player.equalsIgnoreCase("scissors")){
             result = "Tie!";
         }
 
@@ -176,15 +185,19 @@ class User {
     public String userTurn() {
         try {
             IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
-            String answer = userInput.next();
-            if (!answer.equalsIgnoreCase(choices[0]) || !answer.equalsIgnoreCase(choices[1]) || !answer.equalsIgnoreCase(choices[2])) {
+            answer = userInput.next();
+            if (!answer.equalsIgnoreCase(choices[0]) && !answer.equalsIgnoreCase(choices[1]) && !answer.equalsIgnoreCase(choices[2])) {
                 throw new IllegalArgumentException("INAPPROPRIATE OBJECT!!! plz choose rock paper or scissors only plz");
             }
             IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
+            userInput.nextLine();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+            IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
+            answer = userInput.next();
         } catch (Exception e) {
             IO.println("Terrible choice. It's not even allowed please pick one of the GAME OBJECTS :( ");
+            answer = userInput.next();
         }
         userInput.nextLine();
         return answer;
