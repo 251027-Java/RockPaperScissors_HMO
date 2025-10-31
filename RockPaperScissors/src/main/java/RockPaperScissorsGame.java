@@ -52,6 +52,7 @@ public class RockPaperScissorsGame {
 
     // Display results of game
     public static void displayResults(String playerChoice, String computerChoice, String winner) {
+        // Emojis of each choice
         String rock = "\uD83E\uDEA8";
         String paper = "\uD83D\uDCC4";
         String scissors = "✂\uFE0F";
@@ -228,24 +229,24 @@ class User {
     }
 
     public String userTurn() {
-        try {
-            IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
-            answer = userInput.next();
-            if (!answer.equalsIgnoreCase(choices[0]) && !answer.equalsIgnoreCase(choices[1]) && !answer.equalsIgnoreCase(choices[2])) {
-                throw new IllegalArgumentException("INAPPROPRIATE OBJECT!!! plz choose rock paper or scissors only plz");
-            }
-            IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
-            userInput.nextLine();
+        while(true) {
+            try {
+                IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
+                answer = userInput.next();
+                if (!answer.equalsIgnoreCase(choices[0]) && !answer.equalsIgnoreCase(choices[1]) && !answer.equalsIgnoreCase(choices[2])) {
+                    throw new IllegalArgumentException("INAPPROPRIATE OBJECT!!! plz choose rock paper or scissors only plz");
+                }
+                IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
+                userInput.nextLine();
 
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
-            answer = userInput.next();
-        } catch (Exception e) {
-            IO.println("Terrible choice. It's not even allowed please pick one of the GAME OBJECTS :( ");
-            answer = userInput.next();
+            } catch (IllegalArgumentException e) {
+                IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
+                //answer = userInput.next();
+            } catch (Exception e) {
+                IO.println("Terrible choice. It's not even allowed please pick one of the GAME OBJECTS :( ");
+                answer = userInput.next();
+            }
+            userInput.nextLine();
         }
-        userInput.nextLine();
-        return answer;
     }
 }
