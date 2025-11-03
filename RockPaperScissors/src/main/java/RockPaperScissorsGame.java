@@ -3,9 +3,11 @@ import java.util.Random;
 
 public class RockPaperScissorsGame {
     public static void main(String[] args) {
+
         Computer computer = new Computer();
         User user = new User();
         boolean playGame = true;
+
         do {
             //loop until game is won
             boolean gameWon = false;
@@ -21,13 +23,12 @@ public class RockPaperScissorsGame {
                 else if(winner.equalsIgnoreCase("Computer Won!")){
                     computer.score++;
                 }
-                else{
-                    IO.println("Tie!");
-                }
 
                 // Generate Display
-                displayResults(userChoice, computerChoice, winner); // optional pictures
+                displayResults(userChoice, computerChoice, winner);
+                IO.println();
                 displayScore(user.score, computer.score);
+                IO.println();
 
                 // Check if game has been won
                 if(user.score == 2 || computer.score == 2) {
@@ -39,7 +40,7 @@ public class RockPaperScissorsGame {
 
             // Check if user wants to play again
             String response = IO.readln("Do you want to play again? (Y/N)");
-            if(!response.equalsIgnoreCase("Y")) {
+            if(!response.equalsIgnoreCase("Y") && !response.equalsIgnoreCase("yes")) {
                 playGame = false; // If response is not "Y", game will end
             }
             else {
@@ -47,7 +48,7 @@ public class RockPaperScissorsGame {
                 computer.score = 0;
             }
 
-        }while(playGame);
+        } while(playGame);
     }
 
     // Display results of game
@@ -57,6 +58,7 @@ public class RockPaperScissorsGame {
         String paper = "\uD83D\uDCC4";
         String scissors = "✂\uFE0F";
 
+        IO.println();
         IO.println("You chose " + playerChoice);
         IO.println("Computer chose " + computerChoice);
 
@@ -78,6 +80,7 @@ public class RockPaperScissorsGame {
             IO.println(scissors);
         }
 
+        IO.println();
         if(winner.equalsIgnoreCase("Player Won!")) {
             IO.println(playerChoice + " beats " + computerChoice);
             if(playerChoice.equalsIgnoreCase("rock")) {
@@ -107,7 +110,6 @@ public class RockPaperScissorsGame {
                 IO.println(scissors);
             }
         }
-        IO.println();
     }
 
     // Display scores
@@ -139,6 +141,7 @@ public class RockPaperScissorsGame {
                 IO.println("You are tied with the computer. Keep playing!");
             }
         }
+        IO.println();
     }
 
 }
@@ -207,9 +210,12 @@ class Computer{
     //array for computer choices
     String[] choices = {"Rock", "Paper", "Scissors"};
     //random object to be used for computer choice
-    Random compChoice = new Random();
+    Random compChoice;
 
-    public Computer(){};
+    public Computer(){
+        compChoice = new Random();
+        score = 0;
+    };
 
     public String ComputerTurn(){
         int randomIndex = compChoice.nextInt(choices.length);
@@ -221,11 +227,13 @@ class Computer{
 class User {
     //user score
     int score;
-    Scanner userInput = new Scanner(System.in);
+    Scanner userInput;
     String[] choices = {"Rock", "Paper", "Scissors"};
     String answer;
 
     public User() {
+        userInput = new Scanner(System.in);
+        score = 0;
     }
 
     public String userTurn() {
@@ -234,19 +242,15 @@ class User {
                 IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
                 answer = userInput.next();
                 if (!answer.equalsIgnoreCase(choices[0]) && !answer.equalsIgnoreCase(choices[1]) && !answer.equalsIgnoreCase(choices[2])) {
-                    throw new IllegalArgumentException("INAPPROPRIATE OBJECT!!! plz choose rock paper or scissors only plz");
+                    throw new IllegalArgumentException();
+                } else {
+                    return answer;
                 }
-                IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
-                userInput.nextLine();
-
             } catch (IllegalArgumentException e) {
-                IO.println("Rock...Paper...Scissors...SHOOT!! Which object would the user like to choose?");
-                //answer = userInput.next();
+                IO.println("INAPPROPRIATE OBJECT!!! plz choose rock paper or scissors only plz");
             } catch (Exception e) {
                 IO.println("Terrible choice. It's not even allowed please pick one of the GAME OBJECTS :( ");
-                answer = userInput.next();
             }
-            userInput.nextLine();
         }
     }
 }
